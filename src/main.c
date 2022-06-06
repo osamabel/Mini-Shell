@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+int	empty_prompt(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t' || cmd[i] == '\n' ||\
+		cmd[i] == '\v' || cmd[i] == '\f' || cmd[i] == '\r'))
+		i++;
+	if (!cmd[i])
+		return (1);
+	return (0);
+}
+
 void	prompt(char *_prompt, char **envp)
 {
 	char	*cmd;
@@ -12,8 +25,13 @@ void	prompt(char *_prompt, char **envp)
 		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tp))
 			perror("tcsetattr");
 		cmd = readline(_prompt);
-		if (cmd)
+		if (!empty_prompt(cmd))
+		{
 			history(cmd, envp);
+			printf("DONE\n");
+			/* CHECK syntax => DO parsing */
+		}
+		free(cmd);
 	}
 }
 
