@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/07 07:47:14 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:34:16 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	empty_prompt(char *cmd)
 
 void	prompt(char *_prompt, char **envp)
 {
+	t_list	*list;
 	char	*cmd;
+
+	list = list_new();
 	while (1)
 	{
 		struct termios tp;
@@ -40,8 +43,8 @@ void	prompt(char *_prompt, char **envp)
 		if (!empty_prompt(cmd))
 		{
 			history(cmd, envp);
-			printf("DONE\n");
-			/* CHECK syntax => DO parsing */
+			lexer(cmd, list);
+			execut(list);
 		}
 		free(cmd);
 	}
