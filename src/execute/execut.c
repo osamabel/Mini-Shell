@@ -6,7 +6,7 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 11:07:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/09 11:28:02 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:35:59 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	execut(t_list *list)
     i = 0;
 
     elm = list->head;
-    while (i < list->size)
+	// expanding(list);
+	while (elm)
     {
         token = (t_token *)elm->content;
         printf("(%d) [ %s ] [%d]\n", i,token->value, token->type);
         elm = elm->next;
-        i++;
     }
 	// t_element *cmds;
 	// cmd = expand_cmd(cmd, envp);
