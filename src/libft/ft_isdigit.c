@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elem_new.c                                         :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:37:02 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/06 16:41:17 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/06/09 18:50:13 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/09 18:50:19 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_element *elem_new(void *content)
+int	ft_isdigit(int c)
 {
-	t_element *new_elm;
-
-	new_elm = (t_element *)ft_malloc(sizeof(t_element));
-	if (!new_elm)
-		return (NULL);
-	new_elm->content = content;
-	return (new_elm);
+	return ((c >= '0' && c <= '9'));
 }
