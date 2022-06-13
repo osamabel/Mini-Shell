@@ -6,24 +6,48 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 14:11:17 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/09 18:57:57 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/12 10:30:20 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	dollar_handling(t_list *list, char **envp)
+void	expand(char **value, char **envp, int i)
 {
-	(void) envp;
+	char	*after;
+	char	*env;
+	char	*befor;
+	int 	j;
+
+	if (i - 1 > 0)
+		befor = ft_substr((*value), 0, i - 1);
+	else
+		befor = NULL;
+	j = i;
+	while ((*value)[j] && ft_isalnum((*value)[j]))
+		j++;
+	env = ft_substr((*value), i , j - i);
+	i = j;
+	while ((*value)[j])
+		j++;
+	if (j - i > 0)
+		after = ft_substr((*value), i, j - i);
+	else
+		after = NULL;
+	(*value) = ft_strjoin(ft_strjoin(befor, get_env_value(ft_strjoin(env, "="), envp)), after);
+	free(befor);
+	free(after);
+	free(env);
+}
+
+void	dollar_handling(t_element *f_cmd, t_element *l_cmd, char **envp)
+{
 	t_element	*elm;
 	t_token		*token;
-	char		*buffer;
 	int			i;
-	int			j;
 
-	buffer = NULL;
-	elm = list->head;
-	while (elm)
+	elm = f_cmd;
+	while (elm && elm->prev != l_cmd)
 	{
 		token = (t_token *)elm->content;
 		i = 0;
@@ -32,21 +56,18 @@ void	dollar_handling(t_list *list, char **envp)
 		if (token->value[i] == '$' && token->value[i + 1])
 		{
 			i++;
-			if (token->type == 2)
+			if (token->type == T_S_SRRING)
 				return ;
-			if (token->type == 1 || !token->type)
-			{
-				j = i;
-				while (ft_isalnum(token->value[j]))
-					j++;
-			}
+			if (token->type == T_D_STRING || token->type == T_WORD)
+				expand(&token->value, envp, i);
 		}
-
 		elm = elm->next;
 	}
 }
 
-void	expanding(t_list *list, char **envp)
+void	expanding(t_element *f_cmd, t_element *l_cmd, char **envp)
 {
-	dollar_handling(list, envp);
+
+	dollar_handling(f_cmd, l_cmd, envp);
+	/* expanding the [*] */
 }
