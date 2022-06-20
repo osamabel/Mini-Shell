@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elem_new.c                                         :+:      :+:    :+:   */
+/*   del_element.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 15:37:02 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/08 12:14:01 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/16 09:00:34 by obelkhad          #+#    #+#             */
+/*   Updated: 2022/06/20 11:44:34 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_element *elem_new(void *content)
+void	del_element_token(t_element *elm)
 {
-	t_element *new_elm;
+	t_token	*token;
 
-	new_elm = (t_element *)ft_malloc(sizeof(t_element));
-	if (!new_elm)
-		return (NULL);
-	new_elm->content = content;
-	return (new_elm);
+	if (elm->next)
+		elm->next->prev = elm->prev;
+	if (elm->prev)
+		elm->prev->next = elm->next;
+	token = (t_token *)elm->content;
+	free(token->value);
+	free(token);
+	free(elm);
 }

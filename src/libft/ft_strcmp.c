@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_and.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/09 10:27:51 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/10 09:17:11 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/15 11:43:24 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/15 17:16:11 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "libft.h"
 
-int set_and(const char *str, t_list *list)
+int ft_strcmp(const char *s1, const char *s2)
 {
-	t_token *token;
+	unsigned const char *str1;
+	unsigned const char *str2;
+	size_t i;
+	int diff;
 
-	if (str[0] == '&' && str[1] == '&')
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	diff = 0;
+	while (str1[i] || str2[i])
 	{
-		token = ft_new_token(ft_strdup("&&"), T_AND);
-		if (!token)
-			return -1;
-		add_back(list, token);
-		return 2;
+		diff = str1[i] - str2[i];
+		if (diff != 0)
+			break;
+		i++;
 	}
-	return -1;
+	return (diff);
 }

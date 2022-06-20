@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g 
 HEADERS = ./includes/minishell.h
 
 SRC =\
@@ -12,6 +12,7 @@ SRC =\
 	src/libft/ft_strdup.c\
 	src/libft/ft_strlen.c\
 	src/libft/ft_strncmp.c\
+	src/libft/ft_strcmp.c\
 	src/libft/ft_strncpy.c\
 	src/libft/ft_substr.c\
 	src/libft/ft_strjoin.c\
@@ -20,6 +21,9 @@ SRC =\
 	src/libft/ft_isalnum.c\
 	src/libft/ft_isalpha.c\
 	src/libft/ft_isdigit.c\
+	src/libft/ft_putchar_fd.c\
+	src/libft/ft_putstr_fd.c\
+	src/libft/ft_putendl_fd.c\
 \
 	src/lexer/ft_new_token.c\
 	src/lexer/ft_skip_spaces.c\
@@ -37,12 +41,27 @@ SRC =\
 	src/lexer/set_and.c\
 	src/lexer/set_l_parenth.c \
 	src/lexer/set_r_parenth.c \
+	src/lexer/is_joinable.c\
 \
 	src/list/add_back.c\
 	src/list/add_front.c\
 	src/list/elem_new.c\
 	src/list/list_del.c\
 	src/list/list_new.c\
+	src/list/del_element.c\
+\
+	src/parser/expect.c\
+	src/parser/is_dless.c\
+	src/parser/is_separator.c\
+	src/parser/is_redirection.c\
+	src/parser/is_word_string.c\
+	src/parser/separator_expect.c\
+	src/parser/symbol_expect.c\
+	src/parser/dless_expect.c\
+	src/parser/check_start.c\
+	src/parser/print_syntax_error.c\
+	src/parser/parser.c\
+	src/parser/heredoc.c\
 \
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\
@@ -56,6 +75,7 @@ SRC =\
 	src/execute/env_value.c\
 	src/execute/cmd_exe.c\
 	src/execute/dividing_cmd.c\
+	src/execute/join.c\
 \
 	src/main.c\
 

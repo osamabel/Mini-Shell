@@ -6,17 +6,24 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/12 10:48:22 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/19 09:34:30 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 #define LEXER_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "list.h"
+#include "libft.h"
+#include "ft_stddef.h"
+
 typedef struct s_token
 {
 	char *value;
 	int type;
+	int to_join;
 } t_token;
 
 #define T_WORD 0
@@ -24,8 +31,8 @@ typedef struct s_token
 #define T_S_SRRING 2
 #define T_LESS 3
 #define T_GREAT 4
-#define T_DLESS 5
-#define T_DGREAT 6
+#define T_DGREAT 5
+#define T_DLESS 6
 #define T_PIPE 7
 #define T_NEWLINE 8
 #define T_OR 9
@@ -49,5 +56,6 @@ int set_or(const char *str, t_list *list);
 int set_and(const char *str, t_list *list);
 int set_l_parenth(const char *str, t_list *list);
 int set_r_parenth(const char *str, t_list *list);
+int is_joinable(char c);
 
 #endif
