@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 17:43:34 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/23 16:32:49 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:06:42 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int parser(const char *str, t_list *list, int *heredoc)
 	elm = list->head;
 	if (check_start(elm))
 		return FT_FAILURE;
+	if (is_parentheses_balanced(list) == 0)
+	{
+		printf("not balanced\n");
+		return FT_FAILURE;
+	}
 	while (elm)
 	{
 		token = (t_token *)elm->content;
@@ -31,7 +36,6 @@ int parser(const char *str, t_list *list, int *heredoc)
 			(*heredoc)++;
 		if (expect(elm, elm->next) == FT_FAILURE)
 			return FT_FAILURE;
-
 		elm = elm->next;
 	}
 	if (*heredoc > 0)

@@ -1,7 +1,8 @@
 NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes/minishell.h
-
+READLINE = -L /goinfre/$(USER)/.brew/opt/readline/lib -lreadline
+READLINE_INCLUDE = -I /goinfre/$(USER)/.brew/opt/readline/include
 SRC =\
 	src/libft/ft_atoi.c\
 	src/libft/ft_indexof.c\
@@ -18,6 +19,8 @@ SRC =\
 	src/libft/ft_strjoin.c\
 	src/libft/ft_strlcpy.c\
 	src/libft/ft_memcpy.c\
+	src/libft/is_long.c\
+	src/libft/ft_atol.c\
 	src/libft/ft_isalnum.c\
 	src/libft/ft_isalpha.c\
 	src/libft/ft_isdigit.c\
@@ -61,8 +64,34 @@ SRC =\
 	src/parser/dless_expect.c\
 	src/parser/check_start.c\
 	src/parser/print_syntax_error.c\
+	src/parser/move_heredoc_content.c\
 	src/parser/parser.c\
 	src/parser/heredoc.c\
+	src/parser/is_parentheses_balanced.c\
+	src/parser/lparenthesis_expect.c\
+	src/parser/rparenthesis_expect.c\
+	src/parser/is_l_parenthesis.c\
+	src/parser/is_r_parenthesis.c\
+	src/parser/wordstring_expect.c\
+\
+	src/builtins/env.c\
+	src/builtins/echo.c\
+	src/builtins/export.c\
+	src/builtins/unset.c\
+	src/builtins/pwd.c\
+	src/builtins/cd.c\
+	src/builtins/ft_exit.c\
+	src/builtins/is_var_name.c\
+\
+\
+	src/env/init_env.c\
+	src/env/new_env.c\
+	src/env/del_env.c\
+	src/env/ft_getenv.c\
+	src/env/ft_setenv.c\
+	src/env/ft_unsetenv.c\
+	src/env/list_to_array.c\
+	src/env/sort_array.c\
 \
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\
@@ -75,12 +104,18 @@ SRC =\
 	src/execute/expanding.c\
 	src/execute/env_value.c\
 	src/execute/execute.c\
+	src/execute/execute_utils.c\
 	src/execute/dividing_cmd.c\
 	src/execute/join.c\
 	src/execute/io_files.c\
 	src/execute/fork.c\
 	src/execute/args.c\
 	src/execute/check_cmd.c\
+	src/execute/handling.c\
+	src/execute/wildcard.c\
+	src/execute/wildcard_utils.c\
+	src/execute/open_file.c\
+	src/execute/built.c\
 \
 	src/main.c\
 
@@ -91,10 +126,10 @@ INCLUDES_PATH = -I./includes/
 all: $(NAME)
 
 %.o: %.c $(HEADERS)
-	gcc $(CFLAGS) $(INCLUDES_PATH) -o $@ -c $<
+	gcc $(CFLAGS) $(INCLUDES_PATH) $(READLINE_INCLUDE) -o $@ -c $<
 
 $(NAME): $(OBJ)
-	gcc $(CFLAGS) -o $(NAME) $^ $(INCLUDES_PATH) -lreadline -lncurses
+	gcc $(CFLAGS) -o $(NAME) $(READLINE) $^ $(INCLUDES_PATH)
 
 clean:
 	rm -f $(OBJ)
