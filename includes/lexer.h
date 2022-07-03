@@ -6,7 +6,7 @@
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:48 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/25 17:05:29 by nerraou          ###   ########.fr       */
+/*   Updated: 2022/07/01 18:40:37 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_token
 
 #define T_WORD 0
 #define T_D_STRING 1
-#define T_S_SRRING 2
+#define T_S_STRING 2
 #define T_LESS 3
 #define T_GREAT 4
 #define T_DGREAT 5
@@ -39,6 +39,8 @@ typedef struct s_token
 #define T_AND 10
 #define T_L_PARENTH 12 // (
 #define T_R_PARENTH 13 // )
+#define T_FILE 14	   // )
+#define T_LIM 15	   // )
 
 int set_d_string(const char *str, t_list *list);
 int set_s_string(const char *str, t_list *list);
@@ -51,6 +53,7 @@ int set_dless(const char *str, t_list *list);
 int set_word(const char *str, t_list *list);
 int set_newline(const char *str, t_list *list);
 t_token *ft_new_token(char *value, int type);
+void del_token(void *content);
 void lexer(const char *str, t_list *list);
 int set_or(const char *str, t_list *list);
 int set_and(const char *str, t_list *list);

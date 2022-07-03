@@ -6,11 +6,18 @@
 /*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:26:11 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/06/28 15:37:21 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/02 18:58:10 by obelkhad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_cmd(int mcr)
+{
+	return (mcr == T_LESS || mcr == T_GREAT || mcr == T_DGREAT || \
+	mcr == T_DLESS || mcr == T_FILE || mcr == T_LIM || mcr == T_PIPE || \
+	mcr == T_AND || mcr == T_OR || mcr == -1);
+}
 
 int	arg_count(t_element	*elm, t_element *l_cmd)
 {
@@ -23,8 +30,13 @@ int	arg_count(t_element	*elm, t_element *l_cmd)
 		token = (t_token *)elm->content;
 		if (token->type == 100)
 			wc++;
-		if (wc && token->type != -1)
-			wc += wcount(token->value, ' ');
+		if (wc && !check_cmd(token->type))
+		{
+			if (token->type == T_D_STRING || token->type == T_S_STRING)
+				wc += 1;
+			else
+				wc += wcount(token->value, ' ');
+		}
 		elm = elm->next;
 	}
 	return (wc);
@@ -59,9 +71,9 @@ void	update_args(t_element *elm, t_element *l_cmd, t_cmd *cmd)
 	while (elm && elm->prev != l_cmd)
 	{
 		token = (t_token *)elm->content;
-		if (token->type != -1 && token->type != 100)
+		if (!check_cmd(token->type) && token->type != 100)
 		{
-			if (wcount(token->value, ' ') == 1)
+			if (wcount(token->value, ' ') == 1 || token->type == T_D_STRING || token->type == T_S_STRING)
 				cmd->args[i++] = ft_strdup(token->value);
 			else
 				spliting(cmd, token->value, &i);
@@ -86,11 +98,5 @@ void	prepear_execve_args(t_element *f_cmd, t_element *l_cmd, t_cmd *cmd)
 		cmd->args[wc - 1] = 0;
 		elm = f_cmd;
 		update_args(elm, l_cmd, cmd);
-	}
-	if (cmd->executable == 2 && g_vars.heredoc != T_DLESS)
-	{
-		cmd->args = (char **)malloc(sizeof(char *) * 2);
-		cmd->args[0] = ft_strdup("/bin/cat");
-		cmd->args[1] = 0;
 	}
 }

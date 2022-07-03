@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_to_array.c                                    :+:      :+:    :+:   */
+/*   del_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 13:20:38 by nerraou           #+#    #+#             */
-/*   Updated: 2022/06/28 11:35:39 by nerraou          ###   ########.fr       */
+/*   Created: 2022/06/29 09:18:34 by nerraou           #+#    #+#             */
+/*   Updated: 2022/06/29 09:29:20 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "lexer.h"
 
-char	**list_to_array(t_list *env_list)
+
+void del_token(void *content)
 {
-	char		**env_arr;
-	t_element	*elm;
-	t_env		*env;
-	int			i;
-
-	env_arr = (char **)ft_malloc(sizeof(char *) * (env_list->size + 1));
-	if (!env_arr)
-		return (NULL);
-	i = 0;
-	elm = env_list->head;
-	while (elm)
-	{
-		env = (t_env *)elm->content;
-		env_arr[i] = ft_strdup(env->prepared);
-		i++;
-		elm = elm->next;
-	}
-	return (env_arr);
+	t_token *token;
+	
+	token = (t_token *)content;
+	free(token->value);
+	free(token);
 }

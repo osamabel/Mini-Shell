@@ -28,8 +28,10 @@ SRC =\
 	src/libft/ft_putstr_fd.c\
 	src/libft/ft_putendl_fd.c\
 	src/libft/ft_split.c\
+	src/libft/ft_tolower.c\
 \
 	src/lexer/ft_new_token.c\
+	src/lexer/del_token.c\
 	src/lexer/ft_skip_spaces.c\
 	src/lexer/lexer.c\
 	src/lexer/set_d_string.c\
@@ -75,14 +77,13 @@ SRC =\
 	src/parser/wordstring_expect.c\
 \
 	src/builtins/env.c\
-	src/builtins/echo.c\
+	src/builtins/ft_echo.c\
 	src/builtins/export.c\
 	src/builtins/unset.c\
 	src/builtins/pwd.c\
 	src/builtins/cd.c\
 	src/builtins/ft_exit.c\
 	src/builtins/is_var_name.c\
-\
 \
 	src/env/init_env.c\
 	src/env/new_env.c\
@@ -96,7 +97,6 @@ SRC =\
 	src/get_next_line/get_next_line.c\
 	src/get_next_line/get_next_line_utils.c\
 \
-	src/initialing/shlvl.c\
 	src/initialing/history.c\
 	src/initialing/prompt.c\
 \
