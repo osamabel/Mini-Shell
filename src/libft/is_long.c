@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 18:24:19 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/03 12:52:49 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:42:31 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	is_long(const char *str)
 	}
 	while (str[i])
 	{
-		printf("[i = %d]\n",i);
 		if (!ft_isdigit(str[i]))
 			return (0);
 		count = (long)(count * (long)10 + str[i] - '0');
@@ -52,7 +51,5 @@ int	is_long(const char *str)
 			return (0);
 		i++;
 	}
-	if (str[i])
-		return (1);
-	return (0);
+	return (1);
 }
