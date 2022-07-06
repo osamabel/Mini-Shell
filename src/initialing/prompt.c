@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 07:47:00 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 12:38:02 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:08:43 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	herdoc_input(t_list *heredoc_list, char *cmd, t_list *list, t_list *env)
 	return (result);
 }
 
-void	prompt(char *_prompt, char **envp, t_list *env_list, int in)
+void	prompt(char *_prompt, char **envp, t_list **env_list, int in)
 {
 	t_list	*list;
 	char	*cmd;
@@ -63,7 +63,7 @@ void	prompt(char *_prompt, char **envp, t_list *env_list, int in)
 		if (!cmd)
 			ctr_d();
 		g_vars.heredoc = 0;
-		if (herdoc_input(hrdoc, cmd, list, env_list) == FT_SUCCESS && \
+		if (herdoc_input(hrdoc, cmd, list, *env_list) == FT_SUCCESS && \
 		!empty_prompt(cmd))
 		{
 			priority(list->head, list->tail, env_list, in);

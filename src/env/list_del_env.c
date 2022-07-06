@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_newline.c                                      :+:      :+:    :+:   */
+/*   list_del_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 14:41:11 by nerraou           #+#    #+#             */
-/*   Updated: 2022/07/04 15:11:28 by obelkhad         ###   ########.fr       */
+/*   Created: 2022/07/04 14:27:20 by nerraou           #+#    #+#             */
+/*   Updated: 2022/07/04 14:43:27 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "env.h"
 
-int	set_newline(const char *str, t_list *list)
+void	list_del_env(void *content)
 {
-	t_token	*token;
-
-	if (str[0] == '\n')
-	{
-		token = ft_new_token(ft_strdup("\n"), T_NEWLINE);
-		if (!token)
-			return (-1);
-		add_back(list, token);
-		return (1);
-	}
-	return (-1);
+	del_env((t_env *)content);
 }

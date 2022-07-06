@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obelkhad <obelkhad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nerraou <nerraou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 18:24:33 by obelkhad          #+#    #+#             */
-/*   Updated: 2022/07/04 11:30:34 by obelkhad         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:35:25 by nerraou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	free_cmd(t_cmd **cmd)
 	if ((*cmd)->args)
 		free_2_arr((*cmd)->args);
 	free (*cmd);
+	*cmd = NULL;
 }
 
 int	in_out(t_element *f_cmd, t_element **l_cmd, t_cmd **cmd)
@@ -66,20 +67,22 @@ void	update_type(t_element *f_cmd, t_element *l_cmd)
 void	fork_proc(t_element *f_cmd, t_element *l_cmd, t_list *env_, t_cmd **cmd)
 {
 	t_opr_logic	operators;
+	t_token		token;
+	t_element	*elm;
 
+	elm = f_cmd;
 	operators.f_cmd = f_cmd;
 	operators.l_cmd = l_cmd;
 	check_parentheses(&operators);
 	update_type(operators.f_cmd, operators.l_cmd);
-	executable(operators.f_cmd, operators.l_cmd, list_to_array(env_), *cmd);
-	wildcard_expand(f_cmd, l_cmd);
+	executable(operators.f_cmd, operators.l_cmd, list_to_array(env_), cmd);
+	wildcard_expand(l_cmd, &token, elm);
 	prepear_execve_args(operators.f_cmd, operators.l_cmd, *cmd);
 	(*cmd)->built = is_builtin((*cmd)->cmd_name);
 	if ((*cmd)->id == 0 && (*cmd)->next_is_pipes == 0 && (*cmd)->built)
 	{
 		get_io(f_cmd, l_cmd);
 		g_vars.exit_code = exe_builtin((*cmd)->built, *cmd, env_);
-		free_cmd(cmd);
 	}
 	else
 		forking(f_cmd, l_cmd, env_, cmd);
