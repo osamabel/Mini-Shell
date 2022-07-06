@@ -1,8 +1,9 @@
 NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes/minishell.h
-READLINE = -L /goinfre/$(USER)/.brew/opt/readline/lib -lreadline
-READLINE_INCLUDE = -I /goinfre/$(USER)/.brew/opt/readline/include
+
+READLINE = -L /goinfre/$(USER)/.brew/Cellar/readline/8.1.2/lib -lreadline
+READLINE_INCLUDE = -I /goinfre/$(USER)/.brew/Cellar/readline/8.1.2/include
 SRC =\
 	src/libft/ft_atoi.c\
 	src/libft/ft_indexof.c\
@@ -125,23 +126,34 @@ SRC =\
 	src/main.c\
 
 OBJ =  $(SRC:.c=.o)
-
+GREEN = \033[0;32m
 INCLUDES_PATH = -I./includes/
 
 all: $(NAME)
-
+	@printf "\n"
+	@echo "$(GREEN) #############   make   #############"
+	@printf "\n"
+	@printf "$(GREEN) ███▄ ▄███▓ ██▓ ███▄    █  ██▓  ██████  ██░ ██ ▓█████  ██▓     ██▓\n"
+	@printf "▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒\n"
+	@printf "▓██    ▓██░▒██▒▓██  ▀█ ██▒▒██▒░ ▓██▄   ▒██▀▀██░▒███   ▒██░    ▒██░\n"
+	@printf "▒██    ▒██ ░██░▓██▒  ▐▌██▒░██░  ▒   ██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░\n"
+	@printf "▒██▒   ░██▒░██░▒██░   ▓██░░██░▒██████▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒\n"
+	@printf "░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓  ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░\n"
+	@printf "░  ░      ░ ▒ ░░ ░░   ░ ▒░ ▒ ░░ ░▒  ░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░\n"
+	@printf "░      ░    ▒ ░   ░   ░ ░  ▒ ░░  ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░\n"
+	@printf "       ░    ░           ░  ░        ░   ░  ░  ░   ░  ░    ░  ░    ░  ░\n"
 %.o: %.c $(HEADERS)
-	gcc $(CFLAGS) $(INCLUDES_PATH) $(READLINE_INCLUDE) -o $@ -c $<
-
+	@gcc $(CFLAGS) $(INCLUDES_PATH) $(READLINE_INCLUDE) -o $@ -c $<
 $(NAME): $(OBJ)
-	gcc $(CFLAGS) -o $(NAME) $(READLINE) $^ $(INCLUDES_PATH)
+	@gcc $(CFLAGS) -o $(NAME) $(READLINE) $^ $(INCLUDES_PATH)
 
 clean:
-	rm -f $(OBJ)
-	rm -f $(OBJ_B)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(LIBFT_BONUS)
+	@rm -f $(NAME)
+	@printf "\n"
+	@echo "$(GREEN) ############   fclean   ############"
+	@printf "\n"
 
 re: fclean all
